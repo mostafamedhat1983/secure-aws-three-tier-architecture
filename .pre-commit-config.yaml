@@ -1,0 +1,29 @@
+repos:
+  # Terraform fmt / validate / tflint / docs
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.107.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_docs
+
+  # KICS security scanner (Docker, replaces tfsec, no Trivy)
+  # Scans the whole repo, but only when there are staged .tf files
+  - repo: local
+    hooks:
+      - id: kics-terraform
+        name: KICS Terraform Security
+        entry: checkmarx/kics scan -p /src --no-progress
+        language: docker_image
+        files: \.tf$
+        verbose: true
+        args:
+        - "--type"
+        - "Terraform"
+        - "--report-formats"
+        - "json"
+        - "--fail-on"
+        - "HIGH,CRITICAL"
+        - "--exclude-severities"
+        - "LOW,MEDIUM"
