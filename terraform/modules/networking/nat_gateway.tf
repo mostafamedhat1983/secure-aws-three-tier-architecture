@@ -3,6 +3,6 @@ resource "aws_nat_gateway" "this" {
   availability_mode = "regional"
 
   tags = {
-    Name = "${var.vpc_name}-regional-nat gatway"
+    Name = "${var.vpc_name}-regional-nat-gatway"
   }
 }
