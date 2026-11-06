@@ -12,7 +12,6 @@ variable "vpc_cidr_block" {
 variable "vpc_name" {
   description = "Name of the VPC"
   type        = string
-  default     = "microservices-platform"
 }
 
 variable "subnets" {
