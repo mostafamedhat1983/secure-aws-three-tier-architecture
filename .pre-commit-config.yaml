@@ -1,12 +1,31 @@
 repos:
   # Terraform fmt / validate / tflint / docs
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.107.0
+    rev: v1.109.4
     hooks:
       - id: terraform_fmt
       - id: terraform_validate
       - id: terraform_tflint
       - id: terraform_docs
+
+  # Basic hygiene checks, private key and AWS key detection
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0   # temporary, pre-commit autoupdate will replace it
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: detect-private-key
+      - id: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+
+  # Gitleaks scans the changes you are about to commit for anything that
+  # looks like a secret: AWS access keys, tokens, passwords, API keys and similar
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0  # temporary, pre-commit autoupdate will replace it
+    hooks:
+      - id: gitleaks
 
   # KICS security scanner (Docker, replaces tfsec, no Trivy)
   # Scans the whole repo, but only when there are staged .tf files
@@ -17,13 +36,14 @@ repos:
         entry: checkmarx/kics scan -p /src --no-progress
         language: docker_image
         files: \.tf$
+        pass_filenames: false
         verbose: true
         args:
-        - "--type"
-        - "Terraform"
-        - "--report-formats"
-        - "json"
-        - "--fail-on"
-        - "HIGH,CRITICAL"
-        - "--exclude-severities"
-        - "LOW,MEDIUM"
+          - "--type"
+          - "Terraform"
+          - "--report-formats"
+          - "json"
+          - "--fail-on"
+          - "HIGH,CRITICAL"
+          - "--exclude-severities"
+          - "LOW,MEDIUM"
