@@ -21,6 +21,8 @@ variable "subnets" {
     availability_zone       = string
     name                    = string
     map_public_ip_on_launch = optional(bool, false)
+    # type is public, private or data
+    type = string
   }))
   # Validate CIDR format
   validation {
@@ -37,4 +39,19 @@ variable "subnets" {
     ])
     error_message = "One or more subnet availability zones are not valid for this region."
   }
+
+  # Validate subnet types
+  validation {
+    condition = alltrue([
+      for s in values(var.subnets) :
+      contains(["public", "private", "data"], s.type)
+    ])
+
+    error_message = "Subnet type must be either 'public', 'private', or 'data'."
+  }
+}
+
+variable "route_table_name" {
+  description = "Name of the route table"
+  type        = string
 }
