@@ -9,9 +9,9 @@ resource "aws_security_group" "this" {
 }
 
 
-resource "aws_vpc_security_group_ingress_rule" "ingress-rule" {
+resource "aws_vpc_security_group_ingress_rule" "ingress_rule" {
   security_group_id            = aws_security_group.this.id
-  for_each                     = var.security-group-ingress
+  for_each                     = var.security_group_ingress
   ip_protocol                  = each.value.ip_protocol
   description                  = each.value.description
   from_port                    = each.value.from_port
@@ -21,9 +21,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress-rule" {
 }
 
 
-resource "aws_vpc_security_group_egress_rule" "egress-rule" {
+resource "aws_vpc_security_group_egress_rule" "egress_rule" {
   security_group_id            = aws_security_group.this.id
-  for_each                     = var.security-group-egress
+  for_each                     = var.security_group_egress
   cidr_ipv4                    = each.value.cidr_ipv4
   ip_protocol                  = each.value.ip_protocol
   description                  = each.value.description

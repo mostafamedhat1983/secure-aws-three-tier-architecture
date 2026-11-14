@@ -3,6 +3,6 @@ resource "aws_default_security_group" "this" {
   # no ingress or egress blocks = no rules = deny all
 
   tags = {
-    Name = var.default-sg-name
+    Name = var.default_sg_name
   }
 }

@@ -56,7 +56,7 @@ variable "route_table_name" {
   type        = string
 }
 
-variable "default-sg-name" {
+variable "default_sg_name" {
   description = "vpc default security group name"
   type        = string
 }
