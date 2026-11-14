@@ -4,7 +4,7 @@
 # AWS provider v6.71.0 pinned for stability
 
 terraform {
-  required_version = "v1.17.1"
+  required_version = "1.17.1"
 
   required_providers {
     aws = {
