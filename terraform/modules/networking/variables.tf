@@ -14,6 +14,16 @@ variable "vpc_name" {
   type        = string
 }
 
+variable "enable_dns_support" {
+  description = "enable or disable dns support"
+  type        = bool
+}
+
+variable "enable_dns_hostnames" {
+  description = "enable or disable hostname"
+  type        = bool
+}
+
 variable "subnets" {
   description = "Map of subnets configurations"
   type = map(object({
