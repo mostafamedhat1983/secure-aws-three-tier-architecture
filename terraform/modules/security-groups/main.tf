@@ -31,12 +31,3 @@ resource "aws_vpc_security_group_egress_rule" "egress-rule" {
   to_port                      = each.value.to_port
   referenced_security_group_id = each.value.referenced_security_group_id
 }
-
-resource "aws_default_security_group" "this" {
-  vpc_id = var.vpc_id
-  # no ingress or egress blocks = no rules = deny all
-
-  tags = {
-    Name = var.default-sg-name
-  }
-}
