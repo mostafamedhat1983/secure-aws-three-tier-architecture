@@ -29,6 +29,13 @@ variable "security-group-ingress" {
 
   validation {
     condition = alltrue([
+      for s in values(var.security-group-ingress) : can(cidrhost(s.cidr_ipv4, 0))
+    ])
+    error_message = "All ingress cidr_ipv4 values must be valid CIDR blocks (e.g. 10.0.1.0/24)."
+  }
+
+  validation {
+    condition = alltrue([
       for rule in values(var.security-group-ingress) :
       (rule.cidr_ipv4 != null) != (rule.referenced_security_group_id != null)
     ])
@@ -48,6 +55,13 @@ variable "security-group-egress" {
   }))
 
   default = {}
+
+  validation {
+    condition = alltrue([
+      for s in values(var.security-group-egress) : can(cidrhost(s.cidr_ipv4, 0))
+    ])
+    error_message = "All egress cidr_ipv4 values must be valid CIDR blocks (e.g. 10.0.1.0/24)."
+  }
 
   validation {
     condition = alltrue([
