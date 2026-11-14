@@ -6,6 +6,8 @@ repos:
       - id: terraform_fmt
       - id: terraform_validate
       - id: terraform_tflint
+        args:
+          - --args=--enable-rule=terraform_naming_convention
       - id: terraform_docs
 
   # Basic hygiene checks, private key and AWS key detection
