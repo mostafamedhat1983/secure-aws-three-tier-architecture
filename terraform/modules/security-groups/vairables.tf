@@ -72,3 +72,8 @@ variable "security-group-egress" {
   }
 
 }
+
+variable "default-sg-name" {
+  description = "vpc default security group name"
+  type        = string
+}
