@@ -3,6 +3,7 @@ resource "aws_db_instance" "this" {
   multi_az                    = var.multi_az
   allocated_storage           = var.allocated_storage
   storage_type                = var.storage_type
+  db_subnet_group_name        = aws_db_subnet_group.this.name
   storage_encrypted           = true
   db_name                     = var.db_name
   engine                      = var.engine
@@ -17,7 +18,12 @@ resource "aws_db_instance" "this" {
     "error",
     "slowquery"
   ]
-
+  # Log groups must exist before RDS so they get our retention and are destroyed with the stack.
+  # If RDS creates them first, they never expire and Terraform fails with ResourceAlreadyExistsException.
+  depends_on = [
+    aws_cloudwatch_log_group.error,
+    aws_cloudwatch_log_group.slowquery,
+  ]
 }
 
 resource "aws_db_subnet_group" "this" {
