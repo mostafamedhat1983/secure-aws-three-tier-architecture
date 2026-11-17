@@ -1,7 +1,3 @@
-# ========================================
-# Terraform & Provider Configuration
-# ========================================
-# AWS provider v6.71.0 pinned for stability
 
 terraform {
   required_version = "1.17.1"
@@ -10,6 +6,11 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "6.71.0"
+    }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "3.9.1"
     }
   }
 }

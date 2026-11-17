@@ -14,8 +14,8 @@ resource "aws_db_instance" "this" {
   username                    = var.username
   manage_master_user_password = true
   parameter_group_name        = aws_db_parameter_group.this.name
-  skip_final_snapshot         = false
-  final_snapshot_identifier   = var.final_snapshot_identifier
+  skip_final_snapshot         = var.skip_final_snapshot
+  final_snapshot_identifier   = var.skip_final_snapshot ? null : "${var.identifier}-final-${random_id.snapshot.hex}"
   copy_tags_to_snapshot       = true
   auto_minor_version_upgrade  = var.auto_minor_version_upgrade
   apply_immediately           = var.apply_immediately

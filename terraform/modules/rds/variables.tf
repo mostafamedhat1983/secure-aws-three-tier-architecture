@@ -43,9 +43,9 @@ variable "username" {
   type        = string
 }
 
-variable "final_snapshot_identifier" {
-  description = "name of DB final snapshot"
-  type        = string
+variable "skip_final_snapshot" {
+  description = "database username"
+  type        = bool
 }
 
 variable "auto_minor_version_upgrade" {
