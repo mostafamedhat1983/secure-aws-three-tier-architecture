@@ -5,4 +5,6 @@ resource "aws_nat_gateway" "this" {
   tags = {
     Name = "${var.vpc_name}-regional-nat-gateway"
   }
+
+  depends_on = [aws_internet_gateway.this]
 }
