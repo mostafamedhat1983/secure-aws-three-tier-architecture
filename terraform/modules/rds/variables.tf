@@ -43,6 +43,26 @@ variable "username" {
   type        = string
 }
 
+variable "final_snapshot_identifier" {
+  description = "name of DB final snapshot"
+  type        = string
+}
+
+variable "auto_minor_version_upgrade" {
+  description = "enabling auto update for minor DB version"
+  type        = bool
+}
+
+variable "apply_immediately" {
+  description = "Whether to apply modifications to DB immediately"
+  type        = bool
+}
+
+variable "maintenance_window" {
+  description = "time windows to apply updates and modifications to DB"
+  type        = string
+}
+
 variable "backup_retention_period" {
   description = "backup retention period in days"
   type        = number
@@ -56,9 +76,19 @@ variable "backup_retention_period" {
   }
 }
 
+variable "rds_name" {
+  description = "database name tag"
+  type        = string
+}
+
 variable "subnet_group_name" {
   description = "database subnet group name"
   type        = string
+}
+
+variable "security_group_ids" {
+  description = "database subnet group name"
+  type        = set(string)
 }
 
 variable "subnet_ids" {
@@ -73,5 +103,15 @@ variable "db_parameter_group_name_prefix" {
 
 variable "db_parameter_group_family" {
   description = "parameter group name family"
+  type        = string
+}
+
+variable "cloudwatch_log_group_error_name" {
+  description = "cloudwatch error log group  name tag"
+  type        = string
+}
+
+variable "cloudwatch_log_group_slowquery_name" {
+  description = "cloudwatch slowquery log group  name tag"
   type        = string
 }

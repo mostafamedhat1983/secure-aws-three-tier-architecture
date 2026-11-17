@@ -4,7 +4,9 @@ resource "aws_db_instance" "this" {
   allocated_storage           = var.allocated_storage
   storage_type                = var.storage_type
   db_subnet_group_name        = aws_db_subnet_group.this.name
+  vpc_security_group_ids      = var.security_group_ids
   storage_encrypted           = true
+  publicly_accessible         = false
   db_name                     = var.db_name
   engine                      = var.engine
   engine_version              = var.engine_version
@@ -13,6 +15,11 @@ resource "aws_db_instance" "this" {
   manage_master_user_password = true
   parameter_group_name        = aws_db_parameter_group.this.name
   skip_final_snapshot         = false
+  final_snapshot_identifier   = var.final_snapshot_identifier
+  copy_tags_to_snapshot       = true
+  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
+  apply_immediately           = var.apply_immediately
+  maintenance_window          = var.maintenance_window
   backup_retention_period     = var.backup_retention_period
   enabled_cloudwatch_logs_exports = [
     "error",
@@ -24,6 +31,10 @@ resource "aws_db_instance" "this" {
     aws_cloudwatch_log_group.error,
     aws_cloudwatch_log_group.slowquery,
   ]
+
+  tags = {
+    Name = var.rds_name
+  }
 }
 
 resource "aws_db_subnet_group" "this" {
