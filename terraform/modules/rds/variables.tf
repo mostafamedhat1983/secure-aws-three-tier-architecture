@@ -44,7 +44,7 @@ variable "username" {
 }
 
 variable "skip_final_snapshot" {
-  description = "database username"
+  description = "Skip the final snapshot when the database is deleted"
   type        = bool
 }
 

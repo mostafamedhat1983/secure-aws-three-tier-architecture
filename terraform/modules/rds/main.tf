@@ -42,7 +42,7 @@ resource "aws_db_subnet_group" "this" {
   subnet_ids = var.subnet_ids
 
   tags = {
-    Name = "My DB subnet group"
+    Name = "${var.identifier}-subnets"
   }
 }
 
@@ -70,8 +70,11 @@ resource "aws_db_parameter_group" "this" {
     value = "FILE"
   }
 
-
   lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    Name = "${var.identifier}-parameter_group"
   }
 }
