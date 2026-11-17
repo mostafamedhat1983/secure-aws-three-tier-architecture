@@ -87,7 +87,7 @@ variable "subnet_group_name" {
 }
 
 variable "security_group_ids" {
-  description = "database subnet group name"
+  description = "security groups for the database"
   type        = set(string)
 }
 
