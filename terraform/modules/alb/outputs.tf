@@ -16,6 +16,9 @@ output "zone_id" {
 output "target_group_arn" {
   description = "ARN of the target group (the ASG attaches its instances to it)"
   value       = aws_lb_target_group.this.arn
+  # A target group can't take instances until a listener ties it to the load balancer.
+  # Terraform can't see that link here, so make anything using this output wait for the listener.
+  depends_on = [aws_lb_listener.this]
 }
 
 output "listener_arn" {
