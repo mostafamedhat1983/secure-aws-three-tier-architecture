@@ -40,8 +40,13 @@ variable "access_logs_bucket" {
 }
 
 variable "access_logs_prefix" {
-  description = "Folder inside the log bucket for this ALB (use a different value for each ALB)"
+  description = "Folder inside the log bucket for this ALB (must be public-alb or internal-alb to match the names in s3 bucket policy)"
   type        = string
+
+  validation {
+    condition     = contains(["public-alb", "internal-alb"], var.access_logs_prefix)
+    error_message = "access logs folder name must be public-alb or internal-alb."
+  }
 }
 
 variable "listener_port" {
