@@ -16,6 +16,11 @@ variable "vpc_id" {
 variable "subnet_ids" {
   description = "Subnets for the load balancer (public subnets for the public ALB, app subnets for the internal ALB)"
   type        = list(string)
+
+  validation {
+    condition     = length(var.subnet_ids) >= 2
+    error_message = "At least two subnet IDs must be provided."
+  }
 }
 
 variable "security_group_ids" {
@@ -32,7 +37,6 @@ variable "enable_deletion_protection" {
 variable "access_logs_bucket" {
   description = "S3 bucket that receives the access logs (must already exist and allow log delivery)"
   type        = string
-  default     = "depi-alb-logs"
 }
 
 variable "access_logs_prefix" {
@@ -48,6 +52,11 @@ variable "listener_port" {
 variable "listener_protocol" {
   description = "Listener protocol (HTTPS or HTTP)"
   type        = string
+
+  validation {
+    condition     = contains(["HTTP", "HTTPS"], var.listener_protocol)
+    error_message = "listener_protocol must be HTTP or HTTPS (uppercase)."
+  }
 }
 
 variable "certificate_arn" {

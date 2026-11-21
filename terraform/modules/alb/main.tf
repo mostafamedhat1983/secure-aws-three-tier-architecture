@@ -54,4 +54,20 @@ resource "aws_lb_listener" "this" {
   tags = {
     Name = var.name
   }
+
+  lifecycle {
+    precondition {
+      condition = (
+        var.listener_protocol != "HTTPS" ||
+        (
+          var.certificate_arn != null &&
+          var.certificate_arn != "" &&
+          var.ssl_policy != null &&
+          var.ssl_policy != ""
+        )
+      )
+
+      error_message = "HTTPS listeners require both certificate_arn and ssl_policy to be provided."
+    }
+  }
 }
