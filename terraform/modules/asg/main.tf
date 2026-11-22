@@ -66,6 +66,14 @@ resource "aws_autoscaling_group" "this" {
     version = aws_launch_template.this.latest_version
   }
 
+  instance_refresh {
+    strategy = "Rolling"
+
+    preferences {
+      min_healthy_percentage = 50
+    }
+  }
+
   tag {
     key                 = "Name"
     value               = var.name
