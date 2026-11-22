@@ -48,15 +48,19 @@ resource "aws_launch_template" "this" {
 }
 
 resource "aws_autoscaling_group" "this" {
-  name                      = var.name
-  min_size                  = var.min_size
-  max_size                  = var.max_size
-  desired_capacity          = var.desired_capacity
-  vpc_zone_identifier       = var.subnet_ids
-  target_group_arns         = [var.target_group_arn]
+  name                = var.name
+  min_size            = var.min_size
+  max_size            = var.max_size
+  desired_capacity    = var.desired_capacity
+  vpc_zone_identifier = var.subnet_ids
+  target_group_arns   = [var.target_group_arn]
+  # Health checks used to decide when to replace instances:
+  # "EC2" — EC2 instance checks only (default).
+  # "ELB" — EC2 instance checks plus load balancer checks.
+  # The load balancer health-check path is configured in the target group's health_check block (in alb module)
   health_check_type         = "ELB"
   health_check_grace_period = var.health_check_grace_period
-
+  default_instance_warmup   = var.default_instance_warmup
   launch_template {
     id      = aws_launch_template.this.id
     version = aws_launch_template.this.latest_version
@@ -66,6 +70,18 @@ resource "aws_autoscaling_group" "this" {
     key                 = "Name"
     value               = var.name
     propagate_at_launch = true
+  }
+
+  lifecycle {
+    precondition {
+      condition = (
+        var.min_size < var.max_size &&
+        var.min_size <= var.desired_capacity &&
+        var.desired_capacity <= var.max_size
+      )
+
+      error_message = "max_size must be greater than min_size, and desired_capacity must be between min_size and max_size."
+    }
   }
 }
 

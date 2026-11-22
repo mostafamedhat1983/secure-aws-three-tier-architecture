@@ -52,26 +52,59 @@ variable "target_group_arn" {
 variable "min_size" {
   description = "Minimum number of instances"
   type        = number
+
+  validation {
+    condition     = var.min_size >= 0
+    error_message = "min_size must be zero or greater."
+  }
+
 }
 
 variable "max_size" {
   description = "Maximum number of instances"
   type        = number
+
+  validation {
+    condition     = var.max_size >= 1
+    error_message = "max_size must be at least 1."
+  }
+
 }
 
 variable "desired_capacity" {
   description = "Number of instances to start with"
   type        = number
+
+  validation {
+    condition     = var.desired_capacity >= 0
+    error_message = "desired_capacity must be zero or greater."
+  }
 }
 
 variable "health_check_grace_period" {
-  description = "Seconds to wait before health checks can replace a new instance"
+  description = "Minimum time after launch before the ASG can replace an instance due to a failed health check.Gives the application time to start and become ready."
   type        = number
   default     = 300
 }
+
+variable "default_instance_warmup" {
+  description = "Time after launch during which a new instance's CloudWatch metrics are excluded from scaling decisions.Prevents startup CPU/memory spikes from triggering unnecessary scale-out actions."
+  type        = number
+  default     = 300
+}
+
 
 variable "cpu_target_value" {
   description = "Average CPU percentage the scaling policy tries to keep"
   type        = number
   default     = 50
+
+  validation {
+    condition = (
+      var.cpu_target_value > 0 &&
+      var.cpu_target_value <= 100
+    )
+
+    error_message = "cpu_target_value must be greater than 0 and no more than 100."
+  }
 }
