@@ -26,6 +26,12 @@ variable "db_name" {
 variable "engine" {
   description = "database engine"
   type        = string
+
+  validation {
+    condition     = var.engine == "mysql"
+    error_message = "engine must be \"mysql\"; this module uses MySQL-specific parameters and log exports."
+  }
+
 }
 
 variable "engine_version" {
@@ -104,6 +110,12 @@ variable "db_parameter_group_name_prefix" {
 variable "db_parameter_group_family" {
   description = "parameter group name family"
   type        = string
+
+  validation {
+    condition     = startswith(var.db_parameter_group_family, "mysql")
+    error_message = "db_parameter_group_family must be a MySQL family (e.g. mysql8.0, mysql8.4)."
+  }
+
 }
 
 variable "cloudwatch_log_group_error_name" {
