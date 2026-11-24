@@ -42,6 +42,12 @@ My handwritten project overview and deployment instructions.
 
 | Name | Type |
 | ---- | ---- |
+| [aws_cloudtrail.main](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudtrail) | resource |
+| [aws_cloudwatch_metric_alarm.internal_alb_unhealthy_targets](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.public_alb_5xx_errors](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.public_alb_unhealthy_targets](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.rds_cpu](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_metric_alarm) | resource |
+| [aws_cloudwatch_metric_alarm.rds_free_storage](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/cloudwatch_metric_alarm) | resource |
 | [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/guardduty_detector) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/availability_zones) | data source |
 | [aws_ecr_repository.backend](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/ecr_repository) | data source |

@@ -46,13 +46,30 @@ output "availability_zones" {
 }
 
 # ---- Route tables (needed when adding VPC endpoints, peering, or a TGW) ----
-output "public_route_table_id" { value = aws_route_table.public.id }
-output "private_route_table_id" { value = aws_route_table.private.id }
-output "data_route_table_id" { value = aws_route_table.data.id }
+output "public_route_table_id" {
+  description = "ID of the public route table."
+  value       = aws_route_table.public.id
+}
+
+output "private_route_table_id" {
+  description = "ID of the private route table."
+  value       = aws_route_table.private.id
+}
+output "data_route_table_id" {
+  description = "ID of the data subnet route table."
+  value       = aws_route_table.data.id
+}
 
 # ---- Gateways (rarely consumed, but useful for debugging / peering) ----
-output "internet_gateway_id" { value = aws_internet_gateway.this.id }
-output "nat_gateway_id" { value = aws_nat_gateway.this.id }
+output "internet_gateway_id" {
+  description = "ID of the VPC internet gateway."
+  value       = aws_internet_gateway.this.id
+}
+
+output "nat_gateway_id" {
+  description = "ID of the NAT gateway."
+  value       = aws_nat_gateway.this.id
+}
 
 # ---- Default SG (locked down default_security_group.tf) ----
 output "default_security_group_id" {

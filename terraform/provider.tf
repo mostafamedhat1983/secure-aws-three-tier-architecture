@@ -22,7 +22,7 @@ provider "aws" {
   default_tags {
     tags = {
       ManagedBy = "Terraform"
-      Project   = "DEPI"
+      Project   = "DEPI-SecureVault"
     }
   }
 }
