@@ -37,8 +37,8 @@ locals {
     alb_access_logs_bucket         = "depi-alb-logs"
     frontend_ecr_repository_name   = "vault-frontend"
     backend_ecr_repository_name    = "vault-backend"
-    frontend_image_tag             = "1.0.0"
-    backend_image_tag              = "1.0.0"
+    frontend_image_tag             = "1.0.1"
+    backend_image_tag              = "1.0.1"
     ami_id                         = "ami-01e4a7224fcbfe81f"
     instance_type                  = "t3.micro"
     asg_min_size                   = 2
