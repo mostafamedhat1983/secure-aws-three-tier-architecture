@@ -1,0 +1,27 @@
+#!/bin/bash
+# Boot script for the FRONTEND instances (rendered by templatefile() in main.tf).
+set -euo pipefail
+
+dnf install -y docker
+
+# Keep container logs from filling the disk
+mkdir -p /etc/docker
+cat > /etc/docker/daemon.json <<'JSON'
+{
+  "log-driver": "json-file",
+  "log-opts": { "max-size": "10m", "max-file": "3" }
+}
+JSON
+
+systemctl enable --now docker
+
+# Log in to ECR with the instance role (no keys anywhere)
+aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}
+
+# Hardened container: read-only filesystem, no capabilities, no privilege escalation
+# (the backend address is already built into the image)
+docker run -d --name vault-frontend --restart unless-stopped \
+  --read-only --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+  --cap-drop ALL --security-opt no-new-privileges:true \
+  --pids-limit 100 --memory 128m -p 8080:8080 \
+  ${image}

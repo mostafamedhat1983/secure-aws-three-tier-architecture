@@ -1,0 +1,29 @@
+#!/bin/bash
+# Boot script for the BACKEND instances (rendered by templatefile() in main.tf).
+set -euo pipefail
+
+dnf install -y docker
+
+# Keep container logs from filling the disk
+mkdir -p /etc/docker
+cat > /etc/docker/daemon.json <<'JSON'
+{
+  "log-driver": "json-file",
+  "log-opts": { "max-size": "10m", "max-file": "3" }
+}
+JSON
+
+systemctl enable --now docker
+
+# Log in to ECR with the instance role (no keys anywhere)
+aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}
+
+# Hardened container: read-only filesystem, no capabilities, no privilege escalation
+docker run -d --name vault-backend --restart unless-stopped \
+  --read-only --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+  --cap-drop ALL --security-opt no-new-privileges:true \
+  --pids-limit 200 --memory 256m -p 5000:5000 \
+  -e AWS_REGION=${region} -e DB_HOST=${db_host} -e DB_NAME=${db_name} \
+  -e DB_SECRET_ARN=${db_secret_arn} -e APP_SECRET_ARN=${app_secret_arn} \
+  -e COOKIE_SECURE=${cookie_secure} \
+  ${image}
