@@ -83,7 +83,7 @@ resource "aws_wafv2_web_acl" "this" {
     priority = 4
 
     action {
-      count {}
+      block {}
     }
 
     statement {
