@@ -29,6 +29,7 @@ My handwritten project overview and deployment instructions.
 | <a name="module_iam_frontend"></a> [iam\_frontend](#module\_iam\_frontend) | ./modules/iam | n/a |
 | <a name="module_networking"></a> [networking](#module\_networking) | ./modules/networking | n/a |
 | <a name="module_rds"></a> [rds](#module\_rds) | ./modules/rds | n/a |
+| <a name="module_route53_private_zone"></a> [route53\_private\_zone](#module\_route53\_private\_zone) | ./modules/route53-private-zone | n/a |
 | <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | ./modules/secrets-manager | n/a |
 | <a name="module_sg_alb"></a> [sg\_alb](#module\_sg\_alb) | ./modules/security-groups | n/a |
 | <a name="module_sg_backend"></a> [sg\_backend](#module\_sg\_backend) | ./modules/security-groups | n/a |

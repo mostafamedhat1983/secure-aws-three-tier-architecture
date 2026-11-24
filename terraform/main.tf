@@ -179,6 +179,25 @@ module "networking" {
   }
 }
 
+
+# ========================================
+# Private Route 53 Hosted Zone
+# ========================================
+
+module "route53_private_zone" {
+  source = "./modules/route53-private-zone"
+
+  zone_name   = "vault.internal"
+  record_name = "backend.vault.internal"
+
+  # Associate the private hosted zone with the project VPC.
+  vpc_id = module.networking.vpc_id
+
+  # Point the private DNS record to the internal ALB.
+  alb_dns_name = module.alb_internal.dns_name
+  alb_zone_id  = module.alb_internal.zone_id
+}
+
 # ------------------------------------------------------------------------------
 # 4. Security groups: one per layer, each accepts traffic ONLY from the layer above
 # ------------------------------------------------------------------------------
