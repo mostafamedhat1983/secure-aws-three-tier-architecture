@@ -16,8 +16,8 @@ output "internal_alb_dns_name" {
 }
 
 output "frontend_image_build_command" {
-  description = "Build the frontend with the internal ALB DNS name after the first apply."
-  value       = "docker build --build-arg BACKEND_URL=http://${module.alb_internal.dns_name} --build-arg DNS_RESOLVER=${cidrhost(local.config.vpc_cidr_block, 2)} -t ${local.frontend_image} ./frontend"
+  description = "Build the frontend using the private backend DNS name."
+  value       = "docker build --build-arg BACKEND_URL=http://backend.vault.internal --build-arg DNS_RESOLVER=${cidrhost(local.config.vpc_cidr_block, 2)} -t ${local.frontend_image} ./frontend"
 }
 
 output "frontend_image" {
@@ -77,4 +77,9 @@ output "asg_names" {
 output "waf_web_acl_arn" {
   description = "ARN of the Web ACL associated with the public ALB."
   value       = module.waf.web_acl_arn
+}
+
+output "backend_dns_name" {
+  description = "Private DNS name pointing to the internal ALB."
+  value       = module.route53_private_zone.backend_dns_name
 }

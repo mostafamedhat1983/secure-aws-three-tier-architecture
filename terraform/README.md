@@ -58,9 +58,10 @@ No inputs.
 | <a name="output_app_secret_arn"></a> [app\_secret\_arn](#output\_app\_secret\_arn) | ARN of the application encryption/session keys secret. |
 | <a name="output_application_url"></a> [application\_url](#output\_application\_url) | Public application URL (create the Namecheap CNAME after apply). |
 | <a name="output_asg_names"></a> [asg\_names](#output\_asg\_names) | Auto Scaling Group names for the frontend and backend tiers. |
+| <a name="output_backend_dns_name"></a> [backend\_dns\_name](#output\_backend\_dns\_name) | Private DNS name pointing to the internal ALB. |
 | <a name="output_backend_image"></a> [backend\_image](#output\_backend\_image) | Backend image reference used by the backend Auto Scaling Group. |
 | <a name="output_frontend_image"></a> [frontend\_image](#output\_frontend\_image) | Frontend image reference used by the frontend Auto Scaling Group. |
-| <a name="output_frontend_image_build_command"></a> [frontend\_image\_build\_command](#output\_frontend\_image\_build\_command) | Build the frontend with the internal ALB DNS name after the first apply. |
+| <a name="output_frontend_image_build_command"></a> [frontend\_image\_build\_command](#output\_frontend\_image\_build\_command) | Build the frontend using the private backend DNS name. |
 | <a name="output_internal_alb_dns_name"></a> [internal\_alb\_dns\_name](#output\_internal\_alb\_dns\_name) | Private AWS-generated DNS name used by the frontend container. |
 | <a name="output_public_alb_dns_name"></a> [public\_alb\_dns\_name](#output\_public\_alb\_dns\_name) | Create a CNAME for vault.mostafa-medhat.online pointing to this DNS name. |
 | <a name="output_rds_address"></a> [rds\_address](#output\_rds\_address) | Private RDS endpoint hostname. |
