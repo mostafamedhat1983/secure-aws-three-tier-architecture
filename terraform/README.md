@@ -42,6 +42,7 @@ My handwritten project overview and deployment instructions.
 
 | Name | Type |
 | ---- | ---- |
+| [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/resources/guardduty_detector) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/availability_zones) | data source |
 | [aws_ecr_repository.backend](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/ecr_repository) | data source |
 | [aws_ecr_repository.frontend](https://registry.terraform.io/providers/hashicorp/aws/6.71.0/docs/data-sources/ecr_repository) | data source |
