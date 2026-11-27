@@ -4,8 +4,6 @@ A security-focused AWS infrastructure project that deploys a containerized secre
 
 The main focus is the **AWS architecture, infrastructure security, and repeatable Infrastructure as Code deployment**. The application provides a workload through which these controls can be demonstrated.
 
-> **Project status:** The application has been tested locally. The AWS infrastructure is defined using Terraform. Do not describe a complete AWS deployment, formal security assessment, resilience test, or database restore test as successful unless you have performed it and retained evidence.
-
 ---
 
 ## Table of Contents
